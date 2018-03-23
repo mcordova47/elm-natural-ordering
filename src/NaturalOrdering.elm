@@ -1,11 +1,16 @@
-module NaturalOrdering exposing (compare)
+module NaturalOrdering exposing (compare, compareOn)
 
 import Regex exposing (Regex, HowMany(..), regex, find)
 
 
 compare : String -> String -> Order
-compare str1 str2 =
-    compareChunkLists (toChunks str1) (toChunks str2)
+compare =
+    compareOn identity
+
+
+compareOn : (a -> String) -> a -> a -> Order
+compareOn f x y =
+    compareChunkLists (toChunks (f x)) (toChunks (f y))
 
 
 type Chunk
