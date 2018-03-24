@@ -94,5 +94,13 @@ toChunks str =
 toChunk : String -> Chunk
 toChunk str =
     String.toInt str
-        |> Result.map IntChunk
+        |> Result.map (intToChunk str)
         |> Result.withDefault (StringChunk str)
+
+
+intToChunk : String -> Int -> Chunk
+intToChunk fallback int =
+    if isNaN (toFloat int) then
+        StringChunk fallback
+    else
+        IntChunk int
