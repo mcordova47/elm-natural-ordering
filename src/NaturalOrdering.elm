@@ -21,7 +21,8 @@ compare =
     compareOn identity
 
 
-{-| Compare two `a`s naturally, based on some function, `a -> String`.
+{-| Compare two `a`s naturally, based on some function, `a -> String`. Use
+this where you would ordinarily use `sortBy`.
 
     List.sortWith (compareOn .name) [{ name = "a10" }, { name = "a2" }]
     --> [{ name = "a2" }, { name = "a10" }]
