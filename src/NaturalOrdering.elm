@@ -1,14 +1,32 @@
 module NaturalOrdering exposing (compare, compareOn)
 
+{-| Compare strings with numbers and diacritics "naturally"
+
+@docs compare, compareOn
+
+-}
+
 import Regex exposing (Regex, HowMany(..), regex, find)
 import String.Normalize exposing (removeDiacritics)
 
 
+{-| Compare two strings naturally.
+
+    List.sortWith NaturalOrdering.compare ["a10", "a2"]
+    --> ["a2", "a10"]
+
+-}
 compare : String -> String -> Order
 compare =
     compareOn identity
 
 
+{-| Compare two `a`s naturally, based on some function, `a -> String`.
+
+    List.sortWith (compareOn .name) [{ name = "a10" }, { name = "a2" }]
+    --> [{ name = "a2" }, { name = "a10" }]
+
+-}
 compareOn : (a -> String) -> a -> a -> Order
 compareOn f x y =
     compareChunkLists (toChunks (f x)) (toChunks (f y))
