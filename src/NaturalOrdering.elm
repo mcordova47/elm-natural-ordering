@@ -1,6 +1,7 @@
 module NaturalOrdering exposing (compare, compareOn)
 
 import Regex exposing (Regex, HowMany(..), regex, find)
+import String.Normalize exposing (removeDiacritics)
 
 
 compare : String -> String -> Order
@@ -22,7 +23,7 @@ compareChunks : Chunk -> Chunk -> Order
 compareChunks chunk1 chunk2 =
     case ( chunk1, chunk2 ) of
         ( StringChunk str1, StringChunk str2 ) ->
-            Basics.compare (String.toLower str1) (String.toLower str2)
+            Basics.compare (toComparableString str1) (toComparableString str2)
 
         ( StringChunk _, IntChunk _ ) ->
             GT
@@ -58,6 +59,11 @@ compareChunkLists chunkList1 chunkList2 =
 chunkRegex : Regex
 chunkRegex =
     regex "[0-9]+|[^0-9]+"
+
+
+toComparableString : String -> String
+toComparableString =
+    String.toLower << removeDiacritics
 
 
 toChunks : String -> List Chunk

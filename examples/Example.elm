@@ -100,15 +100,14 @@ sort sortMethod =
 
 names : List String
 names =
-    [ "File (1)"
-    , "File (2)"
-    , "File (10)"
+    [ "File (1).txt"
+    , "File (2).txt"
+    , "File (10).txt"
     , "a file"
-    , "file (3)"
-    , "File (15)"
+    , "file (3).txt"
+    , "File (15).txt"
     , "A File"
-    , "file (100)"
-    , "File (20)"
-    , "The Whole 9 Yards"
-    , "The Whole 10 Yards"
+    , "file (100).txt"
+    , "File (20).txt"
+    , "Á file"
     ]
