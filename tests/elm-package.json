@@ -1,5 +1,5 @@
 {
-    "version": "1.0.0",
+    "version": "1.0.2",
     "summary": "Test Suites",
     "repository": "https://github.com/mcordova47/elm-natural-ordering.git",
     "license": "BSD3",
@@ -12,7 +12,6 @@
         "eeue56/elm-html-test": "5.2.0 <= v < 6.0.0",
         "elm-community/elm-test": "4.0.0 <= v < 5.0.0",
         "elm-lang/core": "5.1.1 <= v < 6.0.0",
-        "elm-lang/html": "2.0.0 <= v < 3.0.0",
         "kuon/elm-string-normalize": "1.0.0 <= v < 2.0.0"
     },
     "elm-version": "0.18.0 <= v < 0.19.0"
