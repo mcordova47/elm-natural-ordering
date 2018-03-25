@@ -60,4 +60,4 @@ List.sortWith NaturalOrdering.compare names
 -}
 ```
 
-`NaturalOrdering` exports a `compare` function instead of a `sort` function because it's more composable.  You could use it with any data structure that exposes a `sortWith : (a -> a -> Ordering) -> f a -> f a` function, like a [non-emptylist](http://package.elm-lang.org/packages/mgold/elm-nonempty-list/3.1.0/List-Nonempty#sortWith)!
+`NaturalOrdering` exports a `compare` function instead of a `sort` function because it's more composable.  You can use it with any data structure that exposes a `sortWith : (a -> a -> Ordering) -> f a -> f a` function, like a [non-emptylist](http://package.elm-lang.org/packages/mgold/elm-nonempty-list/3.1.0/List-Nonempty#sortWith)!
