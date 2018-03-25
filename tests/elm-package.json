@@ -1,7 +1,7 @@
 {
     "version": "1.0.0",
     "summary": "Test Suites",
-    "repository": "https://github.com/mcordova47/elm-natural-sort.git",
+    "repository": "https://github.com/mcordova47/elm-natural-ordering.git",
     "license": "BSD3",
     "source-directories": [
         "..\\src",
