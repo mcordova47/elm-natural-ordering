@@ -1,4 +1,4 @@
-module Example exposing (suite)
+module Tests exposing (suite)
 
 import Expect exposing (Expectation)
 import Fuzz exposing (Fuzzer)
