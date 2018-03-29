@@ -1,6 +1,6 @@
 {
     "version": "1.0.2",
-    "summary": "Compare strings with numbers and diacritics \"naturally\"",
+    "summary": "Sort strings with numbers and diacritics \"naturally\"",
     "repository": "https://github.com/mcordova47/elm-natural-ordering.git",
     "license": "BSD3",
     "source-directories": [
