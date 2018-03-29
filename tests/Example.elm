@@ -15,9 +15,7 @@ suite =
             \str ->
                 Expect.equal
                     (NaturalOrdering.compare str str)
-                    LT
-
-        -- EQ
+                    EQ
         , fuzz2 nat nat "string representations of numbers compare same as numbers themselves" <|
             \n1 n2 ->
                 Expect.equal
