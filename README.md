@@ -1,5 +1,7 @@
 # elm-natural-ordering
 
+[![Build Status](https://travis-ci.org/mcordova47/elm-natural-ordering.svg?branch=master)](https://travis-ci.org/mcordova47/elm-natural-ordering)
+
 This package provides comparison functions to sort strings containing numbers and diacritics in an expected way.
 
 Take the following list for example:
