@@ -95,13 +95,14 @@ toChunks str =
 toChunk : String -> Chunk
 toChunk str =
     String.toInt str
-        |> Result.map (intToChunk str)
-        |> Result.withDefault (StringChunk str)
+        |> Result.toMaybe
+        |> Maybe.andThen intToChunk
+        |> Maybe.withDefault (StringChunk str)
 
 
-intToChunk : String -> Int -> Chunk
-intToChunk fallback int =
+intToChunk : Int -> Maybe Chunk
+intToChunk int =
     if isNaN (toFloat int) then
-        StringChunk fallback
+        Nothing
     else
-        IntChunk int
+        Just (IntChunk int)
