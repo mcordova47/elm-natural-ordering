@@ -4,7 +4,7 @@ import Expect exposing (Expectation)
 import Fuzz exposing (Fuzzer)
 import NaturalOrdering
 import Random exposing (maxInt)
-import Regex exposing (Regex, regex)
+import Regex exposing (Regex)
 import Test exposing (..)
 
 
@@ -19,17 +19,17 @@ suite =
         , fuzz2 nat nat "string representations of numbers compare same as numbers themselves" <|
             \n1 n2 ->
                 Expect.equal
-                    (NaturalOrdering.compare (toString n1) (toString n2))
+                    (NaturalOrdering.compare (String.fromInt n1) (String.fromInt n2))
                     (compare n1 n2)
         , fuzz3 Fuzz.string Fuzz.string unequalNats "strings beginning with numbers compare same as numbers" <|
             \str1 str2 ( n1, n2 ) ->
                 Expect.equal
-                    (NaturalOrdering.compare (toString n1 ++ " " ++ str1) (toString n2 ++ " " ++ str2))
+                    (NaturalOrdering.compare (String.fromInt n1 ++ " " ++ str1) (String.fromInt n2 ++ " " ++ str2))
                     (compare n1 n2)
         , fuzz2 nonNumericString nat "numbers compare less than non-numeric strings" <|
             \str n ->
                 Expect.equal
-                    (NaturalOrdering.compare (toString n) str)
+                    (NaturalOrdering.compare (String.fromInt n) str)
                     LT
         , fuzz2 Fuzz.string Fuzz.string "reversing arguments negates order" <|
             \str1 str2 ->
@@ -53,27 +53,34 @@ nat =
 
 unequalNats : Fuzzer ( Int, Int )
 unequalNats =
-    Fuzz.conditional
-        { retries = 5
-        , fallback = \( n, _ ) -> ( n, n + 1 )
-        , condition = uncurry (/=)
-        }
-        (Fuzz.tuple ( nat, nat ))
+    Fuzz.tuple ( nat, nat )
+        |> Fuzz.map
+            (\( n1, n2 ) ->
+                if n1 == n2 then
+                    ( n1, n1 + 1 )
+
+                else
+                    ( n1, n2 )
+            )
 
 
 nonNumericString : Fuzzer String
 nonNumericString =
-    Fuzz.conditional
-        { retries = 10
-        , fallback = \str -> "a" ++ str
-        , condition = Regex.contains nonNumericRegex
-        }
-        Fuzz.string
+    Fuzz.string
+        |> Fuzz.map
+            (\str ->
+                if Regex.contains nonNumericRegex str then
+                    str
+
+                else
+                    "a" ++ str
+            )
 
 
 nonNumericRegex : Regex
 nonNumericRegex =
-    regex "^[^0-9]"
+    Regex.fromString "^[^0-9]"
+        |> Maybe.withDefault Regex.never
 
 
 negateOrd : Order -> Order

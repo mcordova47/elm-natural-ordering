@@ -6,7 +6,8 @@ module NaturalOrdering exposing (compare, compareOn)
 
 -}
 
-import Regex exposing (Regex, HowMany(..), regex, find)
+import Maybe
+import Regex exposing (Regex)
 import String.Normalize exposing (removeDiacritics)
 
 
@@ -77,7 +78,8 @@ compareChunkLists chunkList1 chunkList2 =
 
 chunkRegex : Regex
 chunkRegex =
-    regex "[0-9]+|[^0-9]+"
+    Regex.fromString "[0-9]+|[^0-9]+"
+        |> Maybe.withDefault Regex.never
 
 
 toComparableString : String -> String
@@ -88,14 +90,13 @@ toComparableString =
 toChunks : String -> List Chunk
 toChunks str =
     str
-        |> find All chunkRegex
+        |> Regex.find chunkRegex
         |> List.map (toChunk << .match)
 
 
 toChunk : String -> Chunk
 toChunk str =
     String.toInt str
-        |> Result.toMaybe
         |> Maybe.andThen intToChunk
         |> Maybe.withDefault (StringChunk str)
 
@@ -104,5 +105,6 @@ intToChunk : Int -> Maybe Chunk
 intToChunk int =
     if isNaN (toFloat int) then
         Nothing
+
     else
         Just (IntChunk int)

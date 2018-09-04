@@ -11,27 +11,13 @@ cache:
 os:
   - linux
 
-env: ELM_VERSION=0.18.0
+env: ELM_VERSION=0.19.0
 
 install:
   - node --version
   - npm --version
-  - npm install -g elm@$ELM_VERSION elm-test elm-format
-  - git clone https://github.com/NoRedInk/elm-ops-tooling
-  - elm-ops-tooling/with_retry.rb elm package install --yes
-  # Faster compile on Travis.
-  - |
-    if [ ! -d sysconfcpus/bin ];
-    then
-      git clone https://github.com/obmarg/libsysconfcpus.git;
-      cd libsysconfcpus;
-      ./configure --prefix=$TRAVIS_BUILD_DIR/sysconfcpus;
-      make && make install;
-      cd ..;
-    fi
-before_script:
-  - cd tests && $TRAVIS_BUILD_DIR/sysconfcpus/bin/sysconfcpus -n 2 elm-make --yes Tests.elm && cd ..
+  - npm install -g elm@$ELM_VERSION elm-test@elm$ELM_VERSION elm-format@elm$ELM_VERSION
 
 script:
   - elm-format --validate src tests examples
-  - $TRAVIS_BUILD_DIR/sysconfcpus/bin/sysconfcpus -n 2 elm-test
+  - elm-test
