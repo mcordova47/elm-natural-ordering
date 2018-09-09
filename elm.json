@@ -1,7 +1,7 @@
 {
     "type": "package",
     "name": "mcordova47/elm-natural-ordering",
-    "summary": "Sort strings with numbers and diacritics \\\\\\\"naturally\\\\\\\"",
+    "summary": "Sort strings with numbers and diacritics \"naturally\"",
     "license": "BSD-3-Clause",
     "version": "1.0.5",
     "exposed-modules": [
