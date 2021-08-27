@@ -43,6 +43,16 @@ suite =
                 Expect.equal
                     (NaturalOrdering.compare "+" "-")
                     LT
+        , test "sorting list of strings" <|
+            \() ->
+                Expect.equal
+                    (NaturalOrdering.sort [ "b10", "B2", "A", "a" ])
+                    [ "A", "a", "B2", "b10" ]
+        , test "sorting list of records" <|
+            \() ->
+                Expect.equal
+                    (NaturalOrdering.sortBy .name [ { name = "b10" }, { name = "B2" }, { name = "A" }, { name = "a" } ])
+                    [ { name = "A" }, { name = "a" }, { name = "B2" }, { name = "b10" } ]
         ]
 
 

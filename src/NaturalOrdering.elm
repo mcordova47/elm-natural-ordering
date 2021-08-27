@@ -1,4 +1,7 @@
-module NaturalOrdering exposing (compare, compareOn)
+module NaturalOrdering exposing
+    ( compare, compareOn
+    , sort, sortBy
+    )
 
 {-| Compare strings with numbers and diacritics "naturally"
 
@@ -32,6 +35,30 @@ this where you would ordinarily use `sortBy`.
 compareOn : (a -> String) -> a -> a -> Order
 compareOn f x y =
     compareChunkLists (toChunks (f x)) (toChunks (f y))
+
+
+{-| Naturally sort values from lowest to highest
+
+    sort [ "b10", "B2", "A", "a" ] == [ "A", "a", "B2", "b10" ]
+
+-}
+sort : List String -> List String
+sort =
+    sortBy identity
+
+
+{-| Naturally sort values by a derived property.
+
+    alice = { name="Alice" }
+    bob   = { name="Bob" }
+    bill  = { name="bill" }
+
+    sortBy .name   [bob,bill,alice] == [alice,bill,bob]
+
+-}
+sortBy : (a -> String) -> List a -> List a
+sortBy f =
+    List.sortWith (compareOn f)
 
 
 type Chunk
