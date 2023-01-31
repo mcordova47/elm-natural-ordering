@@ -5,7 +5,7 @@ module NaturalOrdering exposing
 
 {-| Compare strings with numbers and diacritics "naturally"
 
-@docs compare, compareOn
+@docs compare, compareOn, sort, sortBy
 
 -}
 
@@ -39,7 +39,8 @@ compareOn f x y =
 
 {-| Naturally sort values from lowest to highest
 
-    sort [ "b10", "B2", "A", "a" ] == [ "A", "a", "B2", "b10" ]
+    sort [ "b10", "B2", "A", "a" ]
+    --> [ "A", "a", "B2", "b10" ]
 
 -}
 sort : List String -> List String
@@ -49,11 +50,12 @@ sort =
 
 {-| Naturally sort values by a derived property.
 
-    alice = { name="Alice" }
-    bob   = { name="Bob" }
-    bill  = { name="bill" }
+    alice = { name = "Alice" }
+    bob = { name = "Bob" }
+    bill = { name = "bill" }
 
-    sortBy .name   [bob,bill,alice] == [alice,bill,bob]
+    sortBy .name [bob, bill, alice]
+    --> [alice, bill, bob]
 
 -}
 sortBy : (a -> String) -> List a -> List a
